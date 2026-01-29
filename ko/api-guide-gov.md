@@ -223,8 +223,9 @@ X-Auth-Token: {token-id}
 새로운 볼륨을 생성합니다.
 
 > [참고] CIFS 프로토콜 사용
-> CIFS 프로토콜을 사용하기 위해서는 CIFS 인증 정보를 생성해야 합니다. 인증 정보는 프로젝트 단위로 관리되며, CIFS 볼륨마다 접근할 CIFS 인증 정보를 등록해야 합니다.
+> CIFS 프로토콜을 사용하기 위해서는 CIFS 인증 정보를 생성해야 합니다. 인증 정보는 프로젝트 단위로 관리되며, CIFS 볼륨마다 접근을 허용할 CIFS 인증 정보를 등록해야 합니다.
 > CIFS 인증 정보는 콘솔의 **Storage > NAS > CIFS 인증 정보 관리** 창을 통해 생성할 수 있습니다.
+
 
 ```
 POST  /v1/volumes
@@ -239,7 +240,7 @@ X-Auth-Token: {token-id}
 | --- | --- | --- | --- | --- |
 | X-Auth-Token | Header | String | O | 토큰 ID |
 | volume | Body | Object | O | 볼륨 생성 요청 객체 |
-| volume.acl | Body | List | - | 볼륨 생성 시 설정할 ACL ID 목록<br>IP 또는 CIDR 형식으로 입력할 수 있습니다. |
+| volume.acl | Body | List | - | 볼륨 생성 시 설정할 ACL 목록<br>IP 또는 CIDR 형식으로 입력할 수 있습니다. |
 | volume.description | Body | String | - | 볼륨 설명 |
 | volume.interfaces | Body | List | - | 볼륨에 접근할 인터페이스 목록 |
 | volume.interfaces.subnetId | Body | String | - | 볼륨 인터페이스의 서브넷 ID |
@@ -544,12 +545,12 @@ X-Auth-Token: {token-id}
 | X-Auth-Token | Header | String | O | 토큰 ID |
 | volume\_id | URL | String | O | 볼륨 ID |
 | volume | Body | Object | O | 볼륨 생성 요청 객체 |
-| volume.acl | Body | List | - | 볼륨 생성 시 설정할 ACL ID 목록<br>IP 또는 CIDR 형식으로 입력할 수 있습니다. |
+| volume.acl | Body | List | - | 볼륨 생성 시 설정할 ACL 목록<br>IP 또는 CIDR 형식으로 입력할 수 있습니다. |
 | volume.description | Body | String | - | 볼륨 설명 |
 | volume.mountProtocol | Body | Object | - | 볼륨 생성 시 프로토콜 설정 객체 |
 | volume.mountProtocol.cifsAuthIds | Body | List | - | CIFS 인증 ID 목록 |
 | volume.mountProtocol.protocol | Body | String | - | 이미 생성된 볼륨의 프로토콜은 변경할 수 없습니다.<br>`cifsAuthIds` 필드 변경 시 해당 필드에 `cifs`를 명시해야 합니다. |
-| volume.sizeGb | Body | Integer | O | 볼륨 크기(GB)<br>볼륨은 최소 300GB에서 최대 10,000GB까지, 100GB 단위로 설정할 수 있습니다. |
+| volume.sizeGb | Body | Integer | - | 볼륨 크기(GB)<br>볼륨은 최소 300GB에서 최대 10,000GB까지, 100GB 단위로 설정할 수 있습니다. |
 | volume.snapshotPolicy | Body | Object | - | 볼륨 스냅숏 설정 객체 |
 | volume.snapshotPolicy.maxScheduledCount | Body | Integer | - | 스냅숏 최대 저장 개수<br>30개까지 설정 가능하며, 최대 저장 개수에 도달하면 자동으로 생성된 스냅숏 중 가장 먼저 만들어진 스냅숏이 삭제됩니다. |
 | volume.snapshotPolicy.reservePercent | Body | Integer | - | 스냅숏 용량 비율 |
@@ -1083,7 +1084,7 @@ X-Auth-Token: {token-id}
 | volumeMirror.dstRegion | Body | String | O | 복제 대상 볼륨의 리전 |
 | volumeMirror.dstTenantId | Body | String | O | 복제 대상 볼륨의 테넌트 ID |
 | volumeMirror.dstVolume | Body | Object | O | 복제 대상 볼륨 생성 요청 객체 |
-| volumeMirror.dstVolume.acl | Body | List | - | 볼륨 생성 시 설정할 ACL ID 목록<br>IP 또는 CIDR 형식으로 입력할 수 있습니다. |
+| volumeMirror.dstVolume.acl | Body | List | - | 볼륨 생성 시 설정할 ACL 목록<br>IP 또는 CIDR 형식으로 입력할 수 있습니다. |
 | volumeMirror.dstVolume.description | Body | String | - | 볼륨 설명 |
 | volumeMirror.dstVolume.interfaces | Body | List | - | 볼륨에 접근할 인터페이스 목록 |
 | volumeMirror.dstVolume.interfaces.subnetId | Body | String | - | 볼륨 인터페이스의 서브넷 ID |
