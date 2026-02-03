@@ -1,31 +1,44 @@
-## Storage > NAS > API Guide
 
-To use the API, API endpoint and token are required. Refer to [API usage preparations](https://docs.nhncloud.com/ko/Compute/Compute/ko/identity-api/) to prepare the information required to use the API.<br>
+# NAS API Guide
+
+**Storage > NAS > API Guide**
+
+<a id="nas_api_common"></a>
+## NAS API Common Information
+
+<a id="nas_api_common.endpoint"></a>
+### API Endpoint
+
 NAS API uses the `nasv1` type endpoint. Refer to the `serviceCatalog` in the token issuance response for the valid endpoint.
 
-| Type | Region | Endpoint | 
-| --- | --- | --- |
-| nasv1 | Korea (Pangyo) Region <br> Korea (Pyeongchon) Region | https://kr1-api-nas-infrastructure.nhncloudservice.com  <br> https://kr2-api-nas-infrastructure.nhncloudservice.com |
+| Region | Endpoint | 
+| --- | --- |
+| Korea (Pangyo) Region | https://kr1-api-nas-infrastructure.nhncloudservice.com |
+| Korea (Pyeongchon) Region | https://kr2-api-nas-infrastructure.nhncloudservice.com |
 
-API response may show the fields not specified by the guide. These fields are internally used by NHN Cloud, and not used because they are subject to change without prior notice.
 
-<br>
+<a id="nas_api_common.authentication"></a>
+### Authentication and Authorization
 
-## Response Common Information
+NAS uses IaaS tokens for authentication and authorization when making API calls. The IaaS token is an authentication token used for NHN Cloud's OpenStack-based infrastructure services (IaaS). 
+For more information on issuing and using IaaS tokens, please refer to the [IaaS Token](/nhncloud/en/public-api/auth-method/iaas-token/).
+
+
+<a id="nas_api_common.response"></a>
+### Response Common Information
 
 This section describes the common response information provided by the NAS API. All API responses convey the result of a request via a `header` object.
 
-### [Response Header]
 
-| Name | Type | Format | Description |
+| Name | Type | Description |
 | --- | --- | --- | --- |
-| header | Body | Object | Header Objects |
-| header.isSuccessful | Body | Boolean | Whether the request was successful (`true` or `false`) |
-| header.resultCode | Body | Integer | Result codes corresponding to HTTP status codes<br>- `200`: Success <br>- `201`: Resource creation successful<br>- `202`: Request received successfully, but not yet processed<br>- `400`: Requested with an invalid value<br>- `401`: Permission, authentication, or token-related error <br>- `404`: Requested resource not found<br>- `405`: The requested URL does not support the specified HTTP method<br>- `5XX`: The client's request is valid but the server failed to process it |
-| header.resultMessage | Body | String | Messages about the results of request processing |
+| header | Object | Header Objects |
+| header.isSuccessful | Boolean | Whether the request was successful (`true` or `false`) |
+| header.resultCode | Integer | Result codes corresponding to HTTP status codes<br>- `200`: Success <br>- `201`: Resource creation successful<br>- `202`: Request received successfully, but not yet processed<br>- `400`: Requested with an invalid value<br>- `401`: Permission, authentication, or token-related error <br>- `404`: Requested resource not found<br>- `405`: The requested URL does not support the specified HTTP method<br>- `5XX`: The client's request is valid but the server failed to process it |
+| header.resultMessage | String | Messages about the results of request processing |
 
 <details>
-  <summary>Example response</summary>
+  <summary><strong>Success response</strong></summary>
 
 ```json
 {
@@ -39,10 +52,26 @@ This section describes the common response information provided by the NAS API. 
 
 </details>
 
-<br>
+<details>
+  <summary><strong>Failure response</strong></summary>
 
+```json
+{
+  "header": {
+    "isSuccessful": false,
+    "resultCode": 401,
+    "resultMessage": "Authorization failed"
+  }
+}
+```
+
+</details>
+
+
+<a id="volume"></a>
 ## NAS Storage
 
+<a id="volume.list"></a>
 ### List NAS Storage
 
 Return the list of NAS storage.
@@ -216,6 +245,7 @@ This API does not require a request body.
 
 <br>
 
+<a id="volume.create"></a>
 ### Create NAS storage
 
 Create a new NAS storage.
@@ -441,6 +471,7 @@ X-Auth-Token: {token-id}
 
 <br>
 
+<a id="volume.delete"></a>
 ### Delete NAS storage
 
 Deletes the specified NAS storage.
@@ -465,6 +496,7 @@ The response body does not contain any content other than header fields.
 
 <br>
 
+<a id="volume.view"></a>
 ### View NAS storage
 
 Returns details about the specified NAS storage.
@@ -538,6 +570,7 @@ This API does not require a request body.
 
 <br>
 
+<a id="volume.change_settings"></a>
 ### Change NAS storage settings
 
 Change the settings for the specified NAS storage.
@@ -613,6 +646,7 @@ The response body does not contain any content other than header fields.
 
 <br>
 
+<a id="volume.connect_interface"></a>
 ### Connect an interface to NAS storage
 
 Sets the interface for the specified NAS storage.
@@ -681,6 +715,7 @@ X-Auth-Token: {token-id}
 
 <br>
 
+<a id="volume.delete_interface"></a>
 ### Delete an interface on NAS storage
 
 Deletes the specified interface of the specified NAS storage.
@@ -706,6 +741,7 @@ The response body does not contain any content other than header fields.
 
 <br>
 
+<a id="volume.view_snapshot_restore_history"></a>
 ### View snapshot restore history
 
 Returns a list of snapshot restore history for the specified storage.
@@ -780,6 +816,7 @@ This API does not require a request body.
 
 <br>
 
+<a id="volume.view_usage"></a>
 ### View NAS storage usage
 
 Returns the usage status of the specified NAS storage.
@@ -828,8 +865,10 @@ This API does not require a request body.
 
 <br>
 
+<a id="snapshots"></a>
 ## Snapshots
 
+<a id="snapshots.list"></a>
 ### List Snapshots
 
 View a list of snapshots.
@@ -886,6 +925,7 @@ This API does not require a request body.
 
 <br>
 
+<a id="snapshots.create"></a>
 ### Create Snapshots
 
 Creates a snapshot of the specified NAS storage.
@@ -955,6 +995,7 @@ X-Auth-Token: {token-id}
 
 <br>
 
+<a id="snapshots.delete"></a>
 ### Delete Snapshots
 
 Deletes a snapshot of the specified NAS storage.
@@ -980,6 +1021,7 @@ The response body does not contain any content other than header fields.
 
 <br>
 
+<a id="snapshots.view"></a>
 ### View Snapshot
 
 Returns details of the specified snapshot.
@@ -1015,6 +1057,7 @@ This API does not require a request body.
 
 <br>
 
+<a id="snapshots.restore"></a>
 ### Restore Snapshot
 
 Restores NAS storage to the specified snapshot.
@@ -1040,8 +1083,10 @@ The response body does not contain any content other than header fields.
 
 <br>
 
+<a id="replication"></a>
 ## Set up NAS storage replication
 
+<a id="replication.setup"></a>
 ### Set up replication
 
 Set up replication of the specified NAS storage.
@@ -1183,6 +1228,7 @@ X-Auth-Token: {token-id}
 
 <br>
 
+<a id="replication.disable"></a>
 ### Disable Replication Settings
 
 Disable replication settings for the specified NAS storage.
@@ -1206,6 +1252,7 @@ The response body does not contain any content other than header fields.
 
 <br>
 
+<a id="replication.change_direction"></a>
 ### Change the replication direction
 
 Change the direction of replication between source and target storage.
@@ -1229,6 +1276,7 @@ The response body does not contain any content other than header fields.
 
 <br>
 
+<a id="replication.start"></a>
 ### Start Replication
 
 Start replication from the source storage to the target storage.
@@ -1252,6 +1300,7 @@ The response body does not contain any content other than header fields.
 
 <br>
 
+<a id="replication.status"></a>
 ### View replication status
 
 Returns the most recent replication state.
@@ -1284,6 +1333,7 @@ X-Auth-Token: {token-id}
 
 <br>
 
+<a id="replication.stop"></a>
 ### Stop replication
 
 Stops replication from the source storage to the target storage.
