@@ -20,7 +20,7 @@ NAS API uses the `nasv1` type endpoint. Refer to the `serviceCatalog` in the tok
 <a id="nas_api_common.authentication"></a>
 ### Authentication and Authorization
 
-NAS uses IaaS tokens for authentication and authorization when making API calls. The IaaS token is an authentication token used for NHN Cloud's OpenStack-based infrastructure services (IaaS). For more information on issuing and using IaaS tokens, please refer to the [IaaS Token](/nhncloud/en/public-api/auth-method/iaas-token/).
+NAS uses IaaS tokens for authentication and authorization when making API calls. The IaaS token is an authentication token used for NHN Cloud's OpenStack-based infrastructure services (IaaS). For more information on issuing and using IaaS tokens, please refer to the [IaaS Token](/nhncloud/en/public-api/iaas-token/).
 
 
 <a id="nas_api_common.response"></a>
@@ -66,6 +66,10 @@ This section describes the common response information provided by the NAS API. 
 
 </details>
 
+<br>
+
+> [Note]
+> API response may show the fields not specified by the guide. These fields are internally used by NHN Cloud, and not used because they are subject to change without prior notice.
 
 <a id="volume"></a>
 ## Volume
