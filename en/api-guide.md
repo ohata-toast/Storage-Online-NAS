@@ -1,7 +1,4 @@
-
-# NAS API Guide
-
-**Storage > NAS > API Guide**
+## Storage > NAS > API Guide
 
 <a id="nas_api_common"></a>
 ## NAS API Common Information

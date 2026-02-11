@@ -1,7 +1,4 @@
-
-# NAS API 가이드
-
-**Storage > NAS > API 가이드**
+## Storage > NAS > API 가이드
 
 <a id="nas_api_common"></a>
 ## NAS API 공통 정보
